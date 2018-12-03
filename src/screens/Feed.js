@@ -10,12 +10,13 @@ import {
   FlatList,
   Button,
   AsyncStorage,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import { createMaterialTopTabNavigator } from 'react-navigation';
-
+import ActionButton from 'react-native-action-button'
 import Post from '../components/Post';
 import World from '../components/World';
 import Notifications from '../components/Notifications';
@@ -33,6 +34,7 @@ const width = Dimensions.get('screen').width;
 type Props = {};
 
 export class Home extends Component<Props> {
+  static navigationOptions={header: null}
   constructor() {
     super();
     this.state = {
@@ -114,6 +116,8 @@ export class Home extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+      
+  
         <FlatList
           keyExtractor={item => String(item.id)}
           data={this.state.fotos}
@@ -123,6 +127,12 @@ export class Home extends Component<Props> {
               comentarioCallback={this.adicionaComentario.bind(this)}/>
           }
         />
+        
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Foto')} style={styles.btn}>
+          <Icon name='add' style={{justifyContent:"center"}}/>
+        </TouchableOpacity>
+     
+        
       </View>
 
     );
@@ -233,4 +243,16 @@ const styles = StyleSheet.create({
   container: {
     marginTop: margem
   },
+  btn:{
+    position:'absolute',
+    bottom:5,
+    alignSelf:'flex-end',
+    right:5,
+    backgroundColor:'#037696',
+    borderRadius:30,
+    width:50,
+    height:50,
+    alignItems:'center',
+    justifyContent:'center'
+  }
 });
